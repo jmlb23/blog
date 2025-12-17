@@ -1,8 +1,6 @@
 from fastapi import FastAPI
+from features.users import routes
+
 
 app = FastAPI()
-
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+app.include_router(routes.userRouter)
