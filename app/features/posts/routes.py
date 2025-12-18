@@ -26,4 +26,4 @@ def add_post(
     post: PostDTO,
     repo: Annotated[PostRepository, Depends()]
 ) -> str | None:
-    repo.add(post)
+    repo.add(Post(post.description, post.created))

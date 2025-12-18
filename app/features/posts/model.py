@@ -1,10 +1,11 @@
 from typing import Union
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date
+import uuid
 
 @dataclass
 class Post:
-    id: str
+    id: str = field(init=False, default_factory=lambda: str(uuid.uuid4()))
     description: str
     created: date
 
