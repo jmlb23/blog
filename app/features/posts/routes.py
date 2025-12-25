@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from typing import Annotated
 from .model import PostRepository, Post
-from .dto import Post as PostDTO
+from .dto import PostCreatedResponse, Post as PostDTO
 
 postRouter = APIRouter()
 
@@ -25,5 +25,9 @@ def get_post_by_id(
 def add_post(
     post: PostDTO,
     repo: Annotated[PostRepository, Depends()]
-) -> str | None:
-    repo.add(Post(post.description, post.created))
+) -> PostCreatedResponse | None:
+    id = repo.add(Post(post.description, post.created))
+    if id is not None:
+        return PostCreatedResponse(id=id)
+    else:
+        return None

@@ -13,8 +13,9 @@ class Post:
 class PostRepository:
     _elements: list[Post] = []
 
-    def add(self, post: Post) -> Union[Exception, None]:
+    def add(self, post: Post) -> Union[Exception, str]:
         self._elements.append(post)
+        return post.id
 
     def remove(self, id: str) -> Union[Exception, None]:
         self._elements = list(filter(lambda ele: ele.id == id, self._elements))
@@ -23,4 +24,4 @@ class PostRepository:
         return self._elements
 
     def get(self, id: str) -> Union[Exception, Post | None]:
-        return filter(lambda ele: ele.id == id, self._elements)[0]
+        return list(filter(lambda ele: ele.id == id, self._elements))[0]
