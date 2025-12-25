@@ -2,6 +2,8 @@ from typing import Union
 from dataclasses import dataclass, field
 from datetime import date
 import uuid
+from abc import ABC, abstractmethod
+
 
 @dataclass
 class Post:
@@ -10,7 +12,25 @@ class Post:
     created: date
 
 
-class PostRepository:
+class AbstractPostRepository(ABC):
+    @abstractmethod
+    def add(self, post: Post) -> Union[Exception, str]:
+        pass
+
+    @abstractmethod
+    def remove(self, id: str) -> Union[Exception, None]:
+        pass
+
+    @abstractmethod
+    def list(self) -> Union[Exception, list[Post]]:
+        pass
+
+    @abstractmethod
+    def get(self, id: str) -> Union[Exception, Post | None]:
+        pass
+
+
+class PostRepository(AbstractPostRepository):
     _elements: list[Post] = []
 
     def add(self, post: Post) -> Union[Exception, str]:
@@ -25,3 +45,7 @@ class PostRepository:
 
     def get(self, id: str) -> Union[Exception, Post | None]:
         return list(filter(lambda ele: ele.id == id, self._elements))[0]
+
+
+def get_repo() -> AbstractPostRepository:
+    return PostRepository()
