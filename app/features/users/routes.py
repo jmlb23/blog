@@ -7,11 +7,6 @@ from .model import AbstractUserRepository, get_repo
 userRouter = APIRouter()
 
 
-@userRouter.get("/users")
-def user() -> dict[str, str]:
-    return {"hello": "world"}
-
-
 @userRouter.post("/login")
 def login(
     login: LoginDTO,
