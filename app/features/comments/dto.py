@@ -6,3 +6,8 @@ class Comment(BaseModel):
     post_id: str
     content: str
     likes: int
+
+
+class CreateComment(BaseModel):
+    post_id: str
+    content: str
