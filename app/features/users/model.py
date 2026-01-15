@@ -26,7 +26,7 @@ class UserRepository(AbstractUserRepository):
     users: list[User] = [
         User(
             user_name="jmlb23",
-            password="$2b$14$aGXqCIU1j4x6lSYYJyoE5u93OhdcQiDh6uulaMCmM4bxtO6AWB87e"
+            password="$2a$12$HfEM2moO1TFcif/2wDE9KeCKXp.f5x01/fPrwLWLgyprW.C9ZmoVC"
         )
     ]
 
@@ -38,7 +38,8 @@ class UserRepository(AbstractUserRepository):
         return list(
             filter(lambda u:
                    u.user_name == user_name and
-                   bcrypt.checkpw(password.encode(), u.password.encode()),
+                   bcrypt.checkpw(password.encode("UTF-8"),
+                                  u.password.encode("UTF-8")),
                    self.users)
         )[0]
 

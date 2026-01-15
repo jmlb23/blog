@@ -38,7 +38,7 @@ class PostRepository(AbstractPostRepository):
         return post.id
 
     def remove(self, id: str) -> Union[Exception, None]:
-        self._elements = list(filter(lambda ele: ele.id == id, self._elements))
+        self._elements = list(filter(lambda ele: ele.id != id, self._elements))
 
     def list(self) -> Union[Exception, list[Post]]:
         return self._elements
