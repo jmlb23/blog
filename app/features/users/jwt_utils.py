@@ -9,10 +9,10 @@ class TokenUtils:
         token_params: dict[str, str] = {
             "id": user_id,
             "username": user_name,
-            "exp": str(datetime.now(timezone.utc))
+            "exp": int(datetime.now(timezone.utc).timestamp() + 900)
         }
         return jwt.encode(
             payload=token_params,
             key=getenv("SECRET"),
-            algorithm="HS256"
+            algorithm="HS256",
         )
