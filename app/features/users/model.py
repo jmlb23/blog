@@ -22,7 +22,7 @@ class AbstractUserRepository(ABC):
         pass
 
 
-class UserRepository(AbstractUserRepository):
+class InMemoryUserRepository(AbstractUserRepository):
     users: list[User] = [
         User(
             user_name="jmlb23",
@@ -45,4 +45,4 @@ class UserRepository(AbstractUserRepository):
 
 
 def get_repo() -> AbstractUserRepository:
-    return UserRepository()
+    return InMemoryUserRepository()
