@@ -14,7 +14,8 @@ def get_comments_by_post(
     repo: Annotated[AbstractCommentRepository, Depends(get_repo)],
     post_id: str
 ) -> list[Comment]:
-    pass
+    comments_by_post = repo.get_by_postid(post_id)
+    return comments_by_post
 
 
 @commentsRouter.post("/comments/{post_id}/comments")
@@ -24,4 +25,7 @@ def add_comment_to_post(
     post_id: str,
     comment: CreateComment
 ) -> str | None:
-    pass
+    return repo.add(Comment(
+        post_id=comment.post_id,
+        content=comment.content
+    ))
