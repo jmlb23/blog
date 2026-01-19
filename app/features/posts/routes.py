@@ -35,3 +35,12 @@ def add_post(
         return PostCreatedResponse(id=id)
     else:
         return None
+
+
+@postRouter.delete("/posts/{post_id}")
+def remove_post(
+    token: Annotated[dict[str, Any], Depends(helpers.get_current_user)],
+    repo: Annotated[AbstractPostRepository, Depends(get_repo)],
+    post_id: str
+) -> None:
+    return repo.remove(post_id)

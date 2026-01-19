@@ -8,7 +8,7 @@ from typing import Annotated, Any
 commentsRouter = APIRouter()
 
 
-@commentsRouter.get("/comments/{post_id}/comments")
+@commentsRouter.get("/posts/{post_id}/comments")
 def get_comments_by_post(
     token: Annotated[dict[str, Any], Depends(helpers.get_current_user)],
     repo: Annotated[AbstractCommentRepository, Depends(get_repo)],
@@ -18,7 +18,7 @@ def get_comments_by_post(
     return comments_by_post
 
 
-@commentsRouter.post("/comments/{post_id}/comments")
+@commentsRouter.post("/posts/{post_id}/comments")
 def add_comment_to_post(
     token: Annotated[dict[str, Any], Depends(helpers.get_current_user)],
     repo: Annotated[AbstractCommentRepository, Depends(get_repo)],
@@ -29,3 +29,12 @@ def add_comment_to_post(
         post_id=comment.post_id,
         content=comment.content
     ))
+
+
+@commentsRouter.delete("/comments/{comment_id}")
+def remove_comment_by_id(
+    token: Annotated[dict[str, Any], Depends(helpers.get_current_user)],
+    repo: Annotated[AbstractCommentRepository, Depends(get_repo)],
+    comment_id: str
+) -> None:
+    return repo.remove(comment_id)
